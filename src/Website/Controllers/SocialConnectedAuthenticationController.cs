@@ -9,14 +9,6 @@ namespace Website.Controllers
         private readonly IAuthenticationManager _authenticationManager;
         private readonly IConnectUserManager _connectUserManager;
 
-        public SocialConnectedAuthenticationController()
-            : this(
-                new AuthenticationManagerWrapper(),
-                new ConnectUserManagerWrapper())
-        {
-
-        }
-
         public SocialConnectedAuthenticationController(
             IAuthenticationManager authenticationManager,
             IConnectUserManager connectUserManager)
@@ -29,9 +21,9 @@ namespace Website.Controllers
         public ActionResult Login(string networkName)
         {
             if (!_authenticationManager.GetActiveUser().IsAuthenticated)
-                _connectUserManager.LoginUser(networkName, true, (string)null);
+                _connectUserManager.LoginUser(networkName, true, null);
             else
-                _connectUserManager.AttachUser(networkName, true, (string)null);
+                _connectUserManager.AttachUser(networkName, true, null);
 
             return new EmptyResult();
         }
@@ -42,6 +34,5 @@ namespace Website.Controllers
             _authenticationManager.Logout();
             return new RedirectResult("/");
         }
-
     }
 }

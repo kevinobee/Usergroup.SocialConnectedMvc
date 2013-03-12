@@ -31,6 +31,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+    <PublishDatabases>false</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +43,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\..\lib\Sitecore.Kernel.dll</HintPath>
@@ -50,6 +61,14 @@
     </Reference>
     <Reference Include="Sitecore.Social.Core">
       <HintPath>..\..\lib\Sitecore.Social.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="SitecoreMvcContrib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Sitecore.Mvc.Contrib.Autofac.0.1.4.130312\lib\net40\SitecoreMvcContrib.dll</HintPath>
+    </Reference>
+    <Reference Include="SitecoreMvcContribAutofac, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Sitecore.Mvc.Contrib.Autofac.0.1.4.130312\lib\net40\SitecoreMvcContribAutofac.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System" />
@@ -104,6 +123,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstractions\Data\DatabaseWrapper.cs" />
@@ -120,6 +142,8 @@
     <Compile Include="Abstractions\Security\Authentication\IAuthenticationManager.cs" />
     <Compile Include="Abstractions\SocialConnected\ConnectUserManagerWrapper.cs" />
     <Compile Include="Abstractions\SocialConnected\IConnectUserManager.cs" />
+    <Compile Include="App_Start\AutofacActivator.cs" />
+    <Compile Include="App_Start\IoC.cs" />
     <Compile Include="Configuration\SocialConnected\SocialConnectedSettingsProvider.cs" />
     <Compile Include="Configuration\SocialConnected\SocialConnectedSettings.cs" />
     <Compile Include="Controllers\SocialConnectedRenderingController.cs" />
@@ -132,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="App_Data\packages\SocialConnectedMvc-1.zip" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -146,20 +169,14 @@
     <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\SocialConnectedRendering\GenericConnector.cshtml" />
     <Content Include="Views\SocialConnectedRendering\FacebookLike.cshtml" />
     <Content Include="Views\SocialConnectedRendering\TwitterTweet.cshtml" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <None Include="Properties\PublishProfiles\inetpug.pubxml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\packages\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -179,7 +196,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>56201</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:50597/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

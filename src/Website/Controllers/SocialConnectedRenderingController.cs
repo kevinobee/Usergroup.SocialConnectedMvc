@@ -16,17 +16,6 @@ namespace Website.Controllers
         private readonly SocialConnectedSettings _settings;
         private const string NETWORK_NAME = "NetworkName";
 
-        public SocialConnectedRenderingController()
-            : this(
-                new SocialConnectedSettingsProvider().GetSettings(),
-                new PageContextWrapper(PageContext.CurrentOrNull ?? new PageContext()),
-                new RenderingContextWrapper(RenderingContext.CurrentOrNull ?? new RenderingContext()),
-                new AuthenticationManagerWrapper(),
-                new TranslateWrapper())
-        {
-
-        }
-
         public SocialConnectedRenderingController(
             SocialConnectedSettings settings,
             IPageContext pageContext,
